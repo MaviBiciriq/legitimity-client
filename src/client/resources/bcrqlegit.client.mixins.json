@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "com.bcrq.legit.client.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BackgroundRendererMixin",
+    "BipedEntityModelSpinMixin",
+    "CameraMixin",
+    "ClientPlayerEntityMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "EntityGlowMixin",
+    "GameMenuScreenMixin",
+    "HeldItemRendererMixin",
+    "InGameOverlayRendererMixin",
+    "KeyboardInputMixin",
+    "LivingEntityMixin",
+    "LivingEntityRendererSpinMixin",
+    "MouseMixin",
+    "ParticleManagerMixin",
+    "ProjectileUtilMixin",
+    "ReachMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

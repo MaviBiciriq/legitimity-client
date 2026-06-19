@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "${mod_id}",
+	"version": "${version}",
+	"name": "${mod_name}",
+	"description": "${mod_description}",
+	"authors": [
+		"${mod_author}"
+	],
+	"contact": {
+		"sources": "https://github.com/bcrq/legitimity"
+	},
+	"license": "All Rights Reserved",
+	"icon": "assets/${mod_id}/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.bcrq.legit.LegitimityMod"
+		],
+		"client": [
+			"com.bcrq.legit.client.LegitimityModClient"
+		]
+	},
+	"mixins": [
+		{
+			"config": "bcrqlegit.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.1",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
