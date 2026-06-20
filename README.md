@@ -11,8 +11,6 @@ Legitimity Client is a Fabric client-side utility mod for Minecraft 1.21.4. It i
 
 ## Screenshot
 
-Add your screenshot here:
-
 ![Legitimity Client screenshot](assets/screenshot.png)
 
 ## Features
