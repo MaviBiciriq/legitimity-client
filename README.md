@@ -1,7 +1,7 @@
 # Legitimity Client
 
 <p align="center">
-  <img src="src/main/resources/assets/bcrq.legit/icon.png" width="160" alt="Legitimity icon">
+  <img src="src/main/resources/assets/bcrq_legit/icon.png" width="160" alt="Legitimity icon">
 </p>
 
 > **Note:** This mod was made entirely with artificial intelligence.
