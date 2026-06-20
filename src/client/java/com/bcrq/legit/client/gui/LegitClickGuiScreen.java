@@ -43,7 +43,6 @@ public final class LegitClickGuiScreen extends Screen {
 	private static String savedModuleName;
 	private static ModuleLayout savedModuleLayout = ModuleLayout.SINGLE;
 	private static EspSettingsTab savedEspSettingsTab = EspSettingsTab.VISUALS;
-	private static GuiLanguage savedLanguage = GuiLanguage.ENGLISH;
 	// Theme is managed globally via GuiTheme.activeTheme() / GuiTheme.cycle()
 	private static final int RGB_CLICK_TARGET = 4;
 	private static final long RGB_CLICK_WINDOW_MS = 1400L;
@@ -149,18 +148,16 @@ public final class LegitClickGuiScreen extends Screen {
 	private TopBarLayout topBar(Layout layout) {
 		int buttonHeight = 22;
 		int homeWidth = 84;
-		int languageWidth = 74;
 		int styleWidth = 30;
 		int gap = 6;
 		int y = layout.rootY() + 12;
 		int homeX = layout.rootX() + layout.rootWidth() - homeWidth - 18;
-		int languageX = homeX - languageWidth - gap;
-		int styleX = languageX - styleWidth - gap;
+		int styleX = homeX - styleWidth - gap;
 		int searchRight = styleX - gap;
 		int searchLeftLimit = layout.rootX() + 210;
 		int searchWidth = clampInt(searchRight - searchLeftLimit, 0, 240);
 		int searchX = searchRight - searchWidth;
-		return new TopBarLayout(searchX, styleX, languageX, homeX, y, searchWidth, styleWidth, languageWidth, homeWidth, buttonHeight);
+		return new TopBarLayout(searchX, styleX, homeX, y, searchWidth, styleWidth, homeWidth, buttonHeight);
 	}
 
 	@Override
@@ -225,7 +222,7 @@ public final class LegitClickGuiScreen extends Screen {
 			UiRenderUtil.drawAccentStrip(context, layout.rootX(), layout.rootY(), layout.rootWidth(), accent);
 			context.drawTextWithShadow(textRenderer, "LEGITIMITY",
 					layout.rootX() + 18, layout.rootY() + 14, isRgbModeActive() ? accent : UiRenderUtil.TEXT);
-			context.drawText(textRenderer, tr("client matrix", "istemci matrisi"),
+			context.drawText(textRenderer, "client matrix",
 					layout.rootX() + 19, layout.rootY() + 28, UiRenderUtil.MUTED, false);
 		}
 
@@ -256,7 +253,7 @@ public final class LegitClickGuiScreen extends Screen {
 				isRgbModeActive() ? accent : t.secondary(), ShapeScale.FULL);
 		context.drawTextWithShadow(textRenderer, "LEGITIMITY",
 				layout.rootX() + 32, layout.rootY() + 12, isRgbModeActive() ? accent : t.primary());
-		context.drawText(textRenderer, tr("client matrix", "istemci matrisi"),
+		context.drawText(textRenderer, "client matrix",
 				layout.rootX() + 32, layout.rootY() + 28, t.onSurfaceVariant(), false);
 
 	}
@@ -323,7 +320,7 @@ public final class LegitClickGuiScreen extends Screen {
 			drawButton(context, topBar.searchX(), topBar.y(), topBar.searchWidth(), topBar.buttonHeight(),
 					searchHovered || editingModuleSearch ? panelSoft() : panelAlt(),
 					searchHovered || editingModuleSearch ? accent : outlineBg());
-			String searchText = moduleSearch.isBlank() ? tr("Search modules...", "Modul ara...") : moduleSearch;
+			String searchText = moduleSearch.isBlank() ? "Search modules..." : moduleSearch;
 			int searchColor = moduleSearch.isBlank() && !editingModuleSearch ? mutedCol() : textCol();
 			if (editingModuleSearch) searchText += "_";
 			context.drawText(textRenderer, ellipsize(searchText, topBar.searchWidth() - 22), topBar.searchX() + 10, topBar.y() + 7, searchColor, false);
@@ -333,13 +330,10 @@ public final class LegitClickGuiScreen extends Screen {
 		drawButton(context, topBar.styleX(), topBar.y(), topBar.styleWidth(), topBar.buttonHeight(), styleHovered ? accentSoft : panelAlt(), styleHovered ? accent : outlineBg());
 		context.drawCenteredTextWithShadow(textRenderer, moduleLayoutLabel(layout.centerWidth()), topBar.styleX() + topBar.styleWidth() / 2, topBar.y() + 7, textCol());
 
-		boolean languageHovered = UiRenderUtil.isHovered(mouseX, mouseY, topBar.languageX(), topBar.y(), topBar.languageWidth(), topBar.buttonHeight());
-		drawButton(context, topBar.languageX(), topBar.y(), topBar.languageWidth(), topBar.buttonHeight(), languageHovered ? accentSoft : panelAlt(), languageHovered ? accent : outlineBg());
-		context.drawCenteredTextWithShadow(textRenderer, savedLanguage.toggleLabel(), topBar.languageX() + topBar.languageWidth() / 2, topBar.y() + 7, textCol());
 
 		boolean hovered = UiRenderUtil.isHovered(mouseX, mouseY, topBar.homeX(), topBar.y(), topBar.homeWidth(), topBar.buttonHeight());
 		drawButton(context, topBar.homeX(), topBar.y(), topBar.homeWidth(), topBar.buttonHeight(), hovered || homePanelOpen ? accentSoft : panelAlt(), hovered || homePanelOpen ? accent : outlineBg());
-		context.drawCenteredTextWithShadow(textRenderer, tr("Homes", "Evler"), topBar.homeX() + topBar.homeWidth() / 2, topBar.y() + 7, textCol());
+		context.drawCenteredTextWithShadow(textRenderer, "Homes", topBar.homeX() + topBar.homeWidth() / 2, topBar.y() + 7, textCol());
 	}
 
 	private void renderModules(DrawContext context, int x, int y, int width, int height, int mouseX, int mouseY, int accent, int accentSoft) {
@@ -367,7 +361,7 @@ public final class LegitClickGuiScreen extends Screen {
 		SAVED_SCROLL.put(selectedCategory, moduleScroll);
 
 		if (modules.isEmpty()) {
-			context.drawCenteredTextWithShadow(textRenderer, tr("No matching modules", "Eslesen modul yok"), x + width / 2, y + height / 2 - 6, mutedCol());
+			context.drawCenteredTextWithShadow(textRenderer, "No matching modules", x + width / 2, y + height / 2 - 6, mutedCol());
 			return;
 		}
 
@@ -452,7 +446,7 @@ public final class LegitClickGuiScreen extends Screen {
 			return;
 		}
 		if (selectedModule == null) {
-			context.drawCenteredTextWithShadow(textRenderer, tr("Select a module", "Bir modul sec"), x + width / 2, y + height / 2 - 6, mutedCol());
+			context.drawCenteredTextWithShadow(textRenderer, "Select a module", x + width / 2, y + height / 2 - 6, mutedCol());
 			return;
 		}
 		context.drawTextWithShadow(textRenderer, selectedModule.getName(), x + 14, y + 12, GuiTheme.isM3() ? GuiTheme.current().tertiary() : textCol());
@@ -509,8 +503,8 @@ public final class LegitClickGuiScreen extends Screen {
 		int slide = (int)((1.0f - sheetAnim) * 14.0f);
 		int titleY = y + 12 + slide;
 
-		context.drawTextWithShadow(textRenderer, tr("Homes", "Evler"), x + 14, titleY, GuiTheme.isM3() ? t.tertiary() : textCol());
-		context.drawText(textRenderer, tr("Quick teleport slots", "Hizli isinlanma kayitlari"), x + 14, titleY + 15, mutedCol(), false);
+		context.drawTextWithShadow(textRenderer, "Homes", x + 14, titleY, GuiTheme.isM3() ? t.tertiary() : textCol());
+		context.drawText(textRenderer, "Quick teleport slots", x + 14, titleY + 15, mutedCol(), false);
 
 		int rowX = x + 14;
 		int rowWidth = width - 28;
@@ -628,8 +622,8 @@ public final class LegitClickGuiScreen extends Screen {
 
 	private void drawBindRow(DrawContext context, int x, int y, int width, int accent) {
 		drawPanel(context, x, y, width, 32, GuiTheme.isM3() ? elevationSurface(panelAlt(), 1) : panelAlt(), outlineBg());
-		context.drawText(textRenderer, tr("Keybind", "Tus"), x + 10, y + 10, textCol(), false);
-		String bindText = bindingTarget == selectedModule ? tr("Press a key...", "Bir tusa bas...") : getKeyName(selectedModule.getKeyCode());
+		context.drawText(textRenderer, "Keybind", x + 10, y + 10, textCol(), false);
+		String bindText = bindingTarget == selectedModule ? "Press a key..." : getKeyName(selectedModule.getKeyCode());
 		bindText = ellipsize(bindText, Math.max(48, width - 84));
 		context.drawText(textRenderer, bindText, x + width - textRenderer.getWidth(bindText) - 10, y + 10, bindingTarget == selectedModule ? accent : mutedCol(), false);
 	}
@@ -730,10 +724,7 @@ public final class LegitClickGuiScreen extends Screen {
 			saveUiState();
 			return true;
 		}
-		if (UiRenderUtil.isHovered(mouseX, mouseY, topBar.languageX(), topBar.y(), topBar.languageWidth(), topBar.buttonHeight())) {
-			savedLanguage = savedLanguage.toggle();
-			return true;
-		}
+
 		if (UiRenderUtil.isHovered(mouseX, mouseY, topBar.homeX(), topBar.y(), topBar.homeWidth(), topBar.buttonHeight())) {
 			homePanelOpen = !homePanelOpen;
 			return true;
@@ -1065,18 +1056,16 @@ public final class LegitClickGuiScreen extends Screen {
 		return trimmed + "...";
 	}
 
-	private String tr(String english, String turkish) {
-		return savedLanguage == GuiLanguage.ENGLISH ? english : turkish;
-	}
+
 
 	private String categoryLabel(ModuleCategory category) {
 		return switch (category) {
-			case COMBAT -> tr("Combat", "Savas");
-			case MOVEMENT -> tr("Movement", "Hareket");
-			case RENDER -> tr("Render", "Goruntu");
-			case HUD -> tr("Hud", "Hud");
-			case UTILITY -> tr("Utility", "Araclar");
-			case MISC -> tr("Misc", "Diger");
+			case COMBAT -> "Combat";
+			case MOVEMENT -> "Movement";
+			case RENDER -> "Render";
+			case HUD -> "Hud";
+			case UTILITY -> "Utility";
+			case MISC -> "Misc";
 		};
 	}
 
@@ -1387,53 +1376,32 @@ public final class LegitClickGuiScreen extends Screen {
 	private record TopBarLayout(
 		int searchX,
 		int styleX,
-		int languageX,
 		int homeX,
 		int y,
 		int searchWidth,
 		int styleWidth,
-		int languageWidth,
 		int homeWidth,
 		int buttonHeight
 	) {
 	}
 
 	private enum EspSettingsTab {
-		VISUALS("Visuals", "Gorsel"),
-		TARGETS("Targets", "Hedefler"),
-		BLOCKS("Blocks", "Bloklar"),
-		COLORS("Colors", "Renkler");
+		VISUALS("Visuals"),
+		TARGETS("Targets"),
+		BLOCKS("Blocks"),
+		COLORS("Colors");
 
-		private final String english;
-		private final String turkish;
+		private final String label;
 
-		EspSettingsTab(String english, String turkish) {
-			this.english = english;
-			this.turkish = turkish;
+		EspSettingsTab(String label) {
+			this.label = label;
 		}
 
 		private String label() {
-			return savedLanguage == GuiLanguage.ENGLISH ? english : turkish;
+			return label;
 		}
 	}
 
-	private enum GuiLanguage {
-		ENGLISH("Türkçe"),
-		TURKISH("English");
 
-		private final String toggleLabel;
-
-		GuiLanguage(String toggleLabel) {
-			this.toggleLabel = toggleLabel;
-		}
-
-		private GuiLanguage toggle() {
-			return this == ENGLISH ? TURKISH : ENGLISH;
-		}
-
-		private String toggleLabel() {
-			return toggleLabel;
-		}
-	}
 
 }
