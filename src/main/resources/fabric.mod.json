@@ -8,9 +8,10 @@
 		"${mod_author}"
 	],
 	"contact": {
-		"sources": "https://github.com/bcrq/legitimity"
+		"sources": "https://github.com/MaviBiciriq/legitimity-client",
+		"issues": "https://github.com/MaviBiciriq/legitimity-client/issues"
 	},
-	"license": "All Rights Reserved",
+	"license": "MIT",
 	"icon": "assets/${mod_id}/icon.png",
 	"environment": "*",
 	"entrypoints": {

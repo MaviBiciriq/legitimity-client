@@ -1,5 +1,9 @@
 # Legitimity Client
 
+<p align="center">
+  <img src="src/main/resources/assets/bcrq.legit/icon.png" width="160" alt="Legitimity icon">
+</p>
+
 > **Note:** This mod was made entirely with artificial intelligence.
 > If you want a new feature, open an issue in the **Issues** tab and describe what you want added.
 
@@ -63,4 +67,4 @@ https://github.com/MaviBiciriq/legitimity-client/releases
 
 ## License
 
-This project includes the original template license files. See [LICENSE](LICENSE).
+This project is licensed under the [MIT License](LICENSE).

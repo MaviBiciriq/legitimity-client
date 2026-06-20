@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class LegitimityMod implements ModInitializer {
-	public static final String MOD_ID = "bcrqlegit";
+	public static final String MOD_ID = "bcrq.legit";
 	public static final String MOD_NAME = "Legitimity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
