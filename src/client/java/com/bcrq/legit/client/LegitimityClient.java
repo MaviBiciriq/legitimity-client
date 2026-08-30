@@ -2,7 +2,8 @@ package com.bcrq.legit.client;
 
 import com.bcrq.legit.LegitimityMod;
 import com.bcrq.legit.client.config.ConfigManager;
-import com.bcrq.legit.client.gui.LegitClickGuiScreen;
+import com.bcrq.legit.client.gui.ClickGuiScreen;
+import com.bcrq.legit.client.gui.ModuleGuiAdapter;
 import com.bcrq.legit.client.module.ModuleManager;
 import com.bcrq.legit.client.trust.TrustListManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -19,7 +20,6 @@ public final class LegitimityClient {
 
 	private final ModuleManager moduleManager = new ModuleManager();
 	private final ConfigManager configManager = new ConfigManager(moduleManager);
-	private LegitClickGuiScreen clickGuiScreen;
 	private KeyBinding menuKey;
 	private boolean initialized;
 
@@ -59,7 +59,7 @@ public final class LegitimityClient {
 		InputMetrics.trim();
 
 		while (menuKey.wasPressed()) {
-			if (client.currentScreen instanceof LegitClickGuiScreen) {
+			if (client.currentScreen instanceof ClickGuiScreen) {
 				client.setScreen(null);
 			} else {
 				openClickGui(client);
@@ -72,10 +72,8 @@ public final class LegitimityClient {
 	}
 
 	public void openClickGui(MinecraftClient client) {
-		if (clickGuiScreen == null) {
-			clickGuiScreen = new LegitClickGuiScreen();
-		}
-		client.setScreen(clickGuiScreen);
+		client.setScreen(new ClickGuiScreen(moduleManager.getModules().stream()
+			.map(module -> (com.bcrq.legit.client.gui.IModule) new ModuleGuiAdapter(module)).toList()));
 	}
 
 	public void requestSave() {
